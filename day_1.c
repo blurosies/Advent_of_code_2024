@@ -1,67 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "structure.h"
 
-// defining structures
-typedef struct element {
-    int   value;
-    struct element *suivant;
-}element_t;
-
-typedef struct sequence {
-    element_t*tete;
-}sequence_t;
-
-typedef struct Tuple {
-    int val;
-    element_t *elem;
-}Tuple_t;
-
-// functions to manage linked list
-
-// add an int to the top of the linked list
-void add_to_seq(sequence_t *s , int n){
-    element_t *newcell =malloc(sizeof(element_t));
-    newcell->value= n;
-    newcell->suivant= s->tete;
-    s->tete=newcell;
-}
-
-// remove specific element from list
-void remove_from_seq(sequence_t *s, element_t *prec){
-    if (prec == NULL){
-        element_t *temp=s->tete;
-        s->tete=temp->suivant;
-        free(temp);
-    }else {
-    element_t *curr = prec->suivant;
-    prec->suivant=curr->suivant;
-    free(curr);
-    }
-}
-
-// for debugging purposes
-void print_sequence(sequence_t *s){
-    if (s->tete==NULL){
-        printf("sequence is empty");
-    }
-    element_t*curr = s->tete;
-    while (curr != NULL){
-        printf("%d\n",curr->value);
-        curr=curr->suivant;
-    }
-}
-
-// free sequence after use
-void free_sequence(sequence_t *s) {
-    element_t *curr = s->tete;
-    while (curr != NULL) {
-        element_t *temp = curr;
-        curr = curr->suivant;
-        free(temp);
-    }
-    free(s);
-}
-
+// clang day_1.c structure.o -o day_1
 //day 1 a
 // find smallest number of the list
 Tuple_t find_s_number(sequence_t *s){
